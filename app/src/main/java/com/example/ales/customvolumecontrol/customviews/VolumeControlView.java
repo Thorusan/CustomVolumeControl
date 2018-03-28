@@ -10,6 +10,7 @@ import android.graphics.Point;
 import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -26,11 +27,14 @@ public class VolumeControlView extends View {
     private int rectangleSpaceBetween;
     private int controlVolume;
     private int controlScale;
-
-
+    private String volumeString = null;
     private int controlColor;
-    private Paint paintFillRectangle, paintEmptyRectangle;
+    private Paint paintFillRectangle, paintEmptyRectangle, paintText;
 
+    /**
+     * Constructor default
+     * @param context
+     */
     public VolumeControlView(Context context) {
         super(context);
         initView(context);
@@ -40,6 +44,11 @@ public class VolumeControlView extends View {
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
     }*/
 
+    /**
+     * Constructor with Attributes
+     * @param context
+     * @param attrs
+     */
     public VolumeControlView(Context context, AttributeSet attrs) {
         super(context, attrs);
 
@@ -60,7 +69,6 @@ public class VolumeControlView extends View {
 
     /**
      * Inits layout and widgets.
-     *
      * @param context current context.
      */
     private void initView(Context context) {
@@ -74,6 +82,13 @@ public class VolumeControlView extends View {
         paintEmptyRectangle.setStyle(Paint.Style.FILL);
         paintEmptyRectangle.setColor(Color.GRAY);
 
+        paintText = new Paint();
+        paintText.setColor(Color.BLACK);
+
+        int spSize = 15;
+        float scaledSizeInPixels = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,
+                spSize, getResources().getDisplayMetrics());
+        paintText.setTextSize(scaledSizeInPixels);
 
         coordinateX = centerOfCanvas.x + (rectangleWidth / 2);
         coordinateY = centerOfCanvas.y - (rectangleHeight / 2);
@@ -106,6 +121,10 @@ public class VolumeControlView extends View {
             canvas.drawRect(rect, paintFillRectangle);
             coordinateY = coordinateY + rectangleHeight + rectangleSpaceBetween;
         }
+
+        volumeString = getResources().getString(R.string.volume_control_set, controlVolume);
+        canvas.drawText(volumeString, 10, getHeight(), paintText);
+
     }
 
     @Override
@@ -114,8 +133,6 @@ public class VolumeControlView extends View {
         int pressedY = (int) event.getY();
 
         float scale = getHeight() - pressedY;
-        //int height = controlScale*rectangleHeight + controlScale*rectangleSpaceBetween;
-        //float scale = height - y;
         float volume = scale / getHeight();
         int intVol = Math.round(volume * 100);
         intVol = Math.max(0, intVol);
@@ -153,7 +170,6 @@ public class VolumeControlView extends View {
 
     /**
      * Set volume in percent
-     *
      * @param volume value between 0 and 100 %
      */
     public void setVolume(int volume) {
@@ -164,7 +180,6 @@ public class VolumeControlView extends View {
 
     /**
      * Set scale in number
-     *
      * @param scale value between 0 and 100
      */
     public void setScale(int scale) {
@@ -176,7 +191,6 @@ public class VolumeControlView extends View {
 
     /**
      * Set color for volume control
-     *
      * @param color
      */
     public void setColor(int color) {
@@ -184,5 +198,4 @@ public class VolumeControlView extends View {
         paintFillRectangle.setColor(controlColor);
         invalidate();
     }
-
 }

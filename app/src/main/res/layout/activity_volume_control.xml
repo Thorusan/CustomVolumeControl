@@ -105,6 +105,7 @@
         android:layout_marginBottom="15dp"
         android:layout_marginTop="20dp"
         android:background="#ffff"
+        android:paddingBottom="20dp"
         custom:controlColor="@color/green"
         custom:controlScale="10"
         custom:controlVolume="50" />

@@ -178,6 +178,5 @@ public class VolumeControlActivity extends AppCompatActivity {
         volumeControlView.setColor(controlColor);
     }
 
-
     //endregion
 }

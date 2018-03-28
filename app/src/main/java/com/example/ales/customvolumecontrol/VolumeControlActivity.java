@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.example.ales.customvolumecontrol.customviews.VolumeControlView;
 import com.pes.androidmaterialcolorpickerdialog.ColorPicker;
@@ -35,6 +36,9 @@ public class VolumeControlActivity extends AppCompatActivity {
     Button btnSetColor;
     @BindView(R.id.volume_control_view)
     VolumeControlView volumeControlView;
+
+    @BindView(R.id.volume_label)
+    TextView volumeLabel;
 
     private ColorRGB colorRGB;
 
@@ -172,10 +176,20 @@ public class VolumeControlActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Restore values after orientation change
+     * @param controlVolume volume
+     * @param controlScale scale
+     * @param controlColor color
+     */
     private void restoreCustomViewValues(int controlVolume, int controlScale, int controlColor) {
         volumeControlView.setVolume(controlVolume);
         volumeControlView.setScale(controlScale);
         volumeControlView.setColor(controlColor);
+    }
+
+    public void setTextVolume(String volumeString) {
+        volumeLabel.setText(volumeString);
     }
 
     //endregion

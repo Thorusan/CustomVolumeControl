@@ -8,4 +8,5 @@
     <string name="start_value_in_percent">50</string>
     <string name="percent_sign">%</string>
     <string name="volume_control_set">Volume set at: %1$d %%</string>
+    <string name="volume_set_at">Volume set at:</string>
 </resources>

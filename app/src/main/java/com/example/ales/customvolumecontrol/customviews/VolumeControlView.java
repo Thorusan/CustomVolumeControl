@@ -15,6 +15,7 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.example.ales.customvolumecontrol.R;
+import com.example.ales.customvolumecontrol.VolumeControlActivity;
 
 public class VolumeControlView extends View {
 
@@ -123,7 +124,9 @@ public class VolumeControlView extends View {
         }
 
         volumeString = getResources().getString(R.string.volume_control_set, controlVolume);
-        canvas.drawText(volumeString, 10, getHeight(), paintText);
+        //canvas.drawText(volumeString, 10, getHeight(), paintText);
+
+        ((VolumeControlActivity)getContext()).setTextVolume(volumeString);
 
     }
 
